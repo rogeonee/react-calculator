@@ -1,14 +1,22 @@
+import PropTypes from 'prop-types';
 import { StyleSheet, View } from "react-native";
 
-const Row = ({ children }) => {
-  return <View style={styles.container}>{children}</View>;
+const RowLayout = ({ children, style }) => {
+  return <View style={[styles.container, style]}>{children}</View>;
 };
 
-// create styles of Row
+RowLayout.propTypes = {
+  children: PropTypes.node,
+  style: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ]),
+};
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
   },
 });
 
-export default Row;
+export default RowLayout;
