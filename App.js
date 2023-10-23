@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Button from "./components/Button";
 import Row from "./components/Row";
@@ -8,6 +8,7 @@ import calculator, { initialState } from "./util/calculator";
 export default class App extends Component {
   state = initialState;
 
+
   // handle tap method
   HandleTap = (type, value) => {
     this.setState((state) => calculator(type, value, state));
@@ -16,86 +17,90 @@ export default class App extends Component {
   // render method
   render() {
     return (
-      <View style={styles.container}>
-        {/* Status bae here */}
-        <SafeAreaView>
-          <Text style={styles.value}>
-            {parseFloat(this.state.currentValue).toLocaleString()}
-          </Text>
+      <SafeAreaView style={styles.container}>
+        {/* Status bar here */}
 
-          {/* Do create componentRow */}
-          <Row>
-            <Button
-              text="AC"
-              theme="clear"
-              onPress={() => this.HandleTap("clear")}
-            />
+          {/* Display area */}
+          <View style={styles.displayArea}>
+            <Text style={styles.value}>
+              {parseFloat(this.state.currentValue).toLocaleString()}
+            </Text>
+          </View>
 
-            <Button
-              text="+/-"
-              theme="accent"
-              onPress={() => this.HandleTap("posneg")}
-            />
+          {/* Grid area */}
+          <View style={styles.gridArea}>
+            <Row>
+              <Button
+                text="AC"
+                theme="clear"
+                onPress={() => this.HandleTap("clear")}
+              />
 
-            <Button
-              text="%"
-              theme="accent"
-              onPress={() => this.HandleTap("percentage")}
-            />
+              <Button
+                text="+/-"
+                theme="accent"
+                onPress={() => this.HandleTap("posneg")}
+              />
 
-            <Button
-              text="/"
-              theme="accent"
-              onPress={() => this.HandleTap("operator", "/")}
-            />
-          </Row>
+              <Button
+                text="%"
+                theme="accent"
+                onPress={() => this.HandleTap("percentage")}
+              />
 
-          {/* Number */}
-          <Row>
-            <Button text="7" onPress={() => this.HandleTap("number", 7)} />
-            <Button text="8" onPress={() => this.HandleTap("number", 8)} />
-            <Button text="9" onPress={() => this.HandleTap("number", 9)} />
-            <Button
-              text="x"
-              theme="accent"
-              onPress={() => this.HandleTap("operator", "*")}
-            />
-          </Row>
+              <Button
+                text="/"
+                theme="accent"
+                onPress={() => this.HandleTap("operator", "/")}
+              />
+            </Row>
 
-          <Row>
-            <Button text="4" onPress={() => this.HandleTap("number", 5)} />
-            <Button text="5" onPress={() => this.HandleTap("number", 6)} />
-            <Button text="6" onPress={() => this.HandleTap("number", 7)} />
-            <Button
-              text="-"
-              theme="accent"
-              onPress={() => this.HandleTap("operator", "-")}
-            />
-          </Row>
+            {/* Number */}
+            <Row>
+              <Button text="7" onPress={() => this.HandleTap("number", 7)} />
+              <Button text="8" onPress={() => this.HandleTap("number", 8)} />
+              <Button text="9" onPress={() => this.HandleTap("number", 9)} />
+              <Button
+                text="x"
+                theme="accent"
+                onPress={() => this.HandleTap("operator", "*")}
+              />
+            </Row>
 
-          <Row>
-            <Button text="1" onPress={() => this.HandleTap("number", 1)} />
-            <Button text="2" onPress={() => this.HandleTap("number", 2)} />
-            <Button text="3" onPress={() => this.HandleTap("number", 3)} />
-            <Button
-              text="+"
-              theme="accent"
-              onPress={() => this.HandleTap("operator", "+")}
-            />
-          </Row>
+            <Row>
+              <Button text="4" onPress={() => this.HandleTap("number", 5)} />
+              <Button text="5" onPress={() => this.HandleTap("number", 6)} />
+              <Button text="6" onPress={() => this.HandleTap("number", 7)} />
+              <Button
+                text="-"
+                theme="accent"
+                onPress={() => this.HandleTap("operator", "-")}
+              />
+            </Row>
 
-          <Row>
-            <Button text="0" onPress={() => this.HandleTap("number", 0)} />
-            <Button text="." onPress={() => this.HandleTap("number", ".")} />
-            <Button text="<x" onPress={() => this.HandleTap("delete")} />
-            <Button
-              text="="
-              theme="equal"
-              onPress={() => this.HandleTap("equal", "=")}
-            />
-          </Row>
-        </SafeAreaView>
-      </View>
+            <Row>
+              <Button text="1" onPress={() => this.HandleTap("number", 1)} />
+              <Button text="2" onPress={() => this.HandleTap("number", 2)} />
+              <Button text="3" onPress={() => this.HandleTap("number", 3)} />
+              <Button
+                text="+"
+                theme="accent"
+                onPress={() => this.HandleTap("operator", "+")}
+              />
+            </Row>
+
+            <Row>
+              <Button text="0" onPress={() => this.HandleTap("number", 0)} />
+              <Button text="." onPress={() => this.HandleTap("number", ".")} />
+              <Button text="<x" onPress={() => this.HandleTap("delete")} />
+              <Button
+                text="="
+                theme="equal"
+                onPress={() => this.HandleTap("equal", "=")}
+              />
+            </Row>
+          </View>
+      </SafeAreaView>
     );
   }
 }
@@ -104,14 +109,26 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#202020",
-    justifyContent: "flex-end",
+    backgroundColor: '#1c1b21', // Dark background
+  },
+  displayArea: {
+    height: 280, // reduced height for display area
+    backgroundColor: '#35323d', // Lighter shade than container
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    paddingRight: 20,
+    borderRadius: 20,
+  },
+  gridArea: {
+    flex: 0.5,
+    backgroundColor: "#1c1b21",
+    // Style your button grid layout
+    padding: 10, // some padding around the button grid for better aesthetics
   },
   value: {
     color: "#fff",
-    fontSize: 42,
+    fontSize: 60,
     textAlign: "right",
     marginRight: 20,
-    marginBottom: 10,
   },
 });
