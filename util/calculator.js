@@ -4,76 +4,88 @@ export const initialState = {
     previousValue: null,
   };
   
-  export const handleNumber = (value, state) => {
+export const handleNumber = (value, state) => {
     if (state.currentValue === "0") {
-      return { currentValue: `${value}` };
+        return { currentValue: `${value}` };
     }
-  
+
     return {
-      currentValue: `${state.currentValue}${value}`,
+        currentValue: `${state.currentValue}${value}`,
     };
-  };
+};
   
-  const handleEqual = (state) => {
+const handleEqual = (state) => {
     const { currentValue, previousValue, operator } = state;
-  
+
     const current = parseFloat(currentValue);
     const previous = parseFloat(previousValue);
     const resetState = { operator: null, previousValue: null };
-  
+
     switch (operator) {
-      case "+":
+    case "+":
         return {
-          currentValue: `${previous + current}`,
-          ...resetState,
+            currentValue: `${previous + current}`,
+            ...resetState,
         };
-      case "-":
+    case "-":
         return {
-          currentValue: `${previous - current}`,
-          ...resetState,
+            currentValue: `${previous - current}`,
+            ...resetState,
         };
-      case "*":
+    case "*":
         return {
-          currentValue: `${previous * current}`,
-          ...resetState,
+            currentValue: `${previous * current}`,
+            ...resetState,
         };
-      case "/":
+    case "/":
         return {
-          currentValue: `${previous / current}`,
-          ...resetState,
+            currentValue: `${previous / current}`,
+            ...resetState,
         };
-  
-      default:
+
+    default:
         return state;
     }
-  };
-  
-  // calculator function
-  const calculator = (type, value, state) => {
+};
+
+const handleDelete = (state) => {
+    const { currentValue } = state;
+
+    if (currentValue.length === 1) {
+        return { currentValue: "0" };
+    }
+
+    return { currentValue: currentValue.slice(0, -1) };
+};
+ 
+// calculator function
+const calculator = (type, value, state) => {
     switch (type) {
-      case "number":
-        return handleNumber(value, state);
-      case "clear":
-        return initialState;
-      case "posneg":
-        return {
-          currentValue: `${parseFloat(state.currentValue) * -1}`,
-        };
-      case "percentage":
-        return {
-          currentValue: `${parseFloat(state.currentValue) * 0.01}`,
-        };
-      case "operator":
-        return {
-          operator: value,
-          previousValue: state.currentValue,
-          currentValue: "0",
-        };
-      case "equal":
-        return handleEqual(state);
-      default:
-        return state;
+        case "number":
+            return handleNumber(value, state);
+        case "clear":
+            return initialState;
+        case "posneg":
+            return {
+                currentValue: `${parseFloat(state.currentValue) * -1}`,
+            };
+        case "percentage":
+            return {
+                currentValue: `${parseFloat(state.currentValue) * 0.01}`,
+            };
+        case "operator":
+            return {
+                operator: value,
+                previousValue: state.currentValue,
+                currentValue: "0",
+            };
+        case "equal":
+            return handleEqual(state);
+        case "delete":
+            return handleDelete(state);
+        default:
+            return state;
     }
-  };
-  
-  export default calculator;
+};
+
+export default calculator;

@@ -13,6 +13,10 @@ export default ({ onPress, text, size, theme }) => {
     textStyles.push(styles.textSecondary);
   } else if (theme === "accent") {
     buttonStyles.push(styles.buttonAccent);
+  } else if (theme === "clear") {
+    buttonStyles.push(styles.buttonClear);
+  } else if (theme === "equal") {
+    buttonStyles.push(styles.buttonEqual);
   }
 
   return (
@@ -53,6 +57,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#a6a6a6",
   },
   buttonAccent: {
-    backgroundColor: "#ffc107",
+    backgroundColor: "#48455a",
   },
+  buttonClear: {
+    backgroundColor: "#6a364d"
+  },
+  buttonEqual: {
+    backgroundColor: "#483795"
+  }
 });

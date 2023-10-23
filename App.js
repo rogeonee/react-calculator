@@ -26,20 +26,20 @@ export default class App extends Component {
           {/* Do create componentRow */}
           <Row>
             <Button
-              text="C"
-              theme="secondary"
+              text="AC"
+              theme="clear"
               onPress={() => this.HandleTap("clear")}
             />
 
             <Button
               text="+/-"
-              theme="secondary"
+              theme="accent"
               onPress={() => this.HandleTap("posneg")}
             />
 
             <Button
               text="%"
-              theme="secondary"
+              theme="accent"
               onPress={() => this.HandleTap("percentage")}
             />
 
@@ -56,16 +56,16 @@ export default class App extends Component {
             <Button text="8" onPress={() => this.HandleTap("number", 8)} />
             <Button text="9" onPress={() => this.HandleTap("number", 9)} />
             <Button
-              text="X"
+              text="x"
               theme="accent"
               onPress={() => this.HandleTap("operator", "*")}
             />
           </Row>
 
           <Row>
-            <Button text="5" onPress={() => this.HandleTap("number", 5)} />
-            <Button text="6" onPress={() => this.HandleTap("number", 6)} />
-            <Button text="7" onPress={() => this.HandleTap("number", 7)} />
+            <Button text="4" onPress={() => this.HandleTap("number", 5)} />
+            <Button text="5" onPress={() => this.HandleTap("number", 6)} />
+            <Button text="6" onPress={() => this.HandleTap("number", 7)} />
             <Button
               text="-"
               theme="accent"
@@ -87,9 +87,10 @@ export default class App extends Component {
           <Row>
             <Button text="0" onPress={() => this.HandleTap("number", 0)} />
             <Button text="." onPress={() => this.HandleTap("number", ".")} />
+            <Button text="<x" onPress={() => this.HandleTap("delete")} />
             <Button
               text="="
-              theme="primary"
+              theme="equal"
               onPress={() => this.HandleTap("equal", "=")}
             />
           </Row>
