@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Button from "./components/Button";
 import Row from "./components/Row";
@@ -6,23 +6,60 @@ import calculator, { initialState } from "./util/calculator";
 
 const App = () => {
   const [state, setState] = useState(initialState);
+  const [safeAreaHeight, setSafeAreaHeight] = useState(0);
+
+  const displayAreaHeight = safeAreaHeight * 0.35;
+  const gridAreaHeight = safeAreaHeight - displayAreaHeight;
 
   // handle tap method
   const handleTap = (type, value) => {
     setState(prevState => calculator(type, value, prevState));
   };
 
-  // render method
-    return (
-      <SafeAreaView style={styles.container}>
-        {/* Status bar here */}
+  const styles = {
+    container: {
+      flex: 1,
+      flexDirection: 'column-reverse',
+      //justifyContent: 'flex-end',
+      backgroundColor: '#1c1b21',
+    },
+    displayArea: {
+      flex: 1,
+      //height: displayAreaHeight,
+      backgroundColor: '#35323d',
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+      paddingRight: 20,
+      borderRadius: 20,
+    },
+    gridArea: {
+      flex: 1.9,
+      //height: gridAreaHeight,
+      backgroundColor: "#1c1b21",
+      paddingTop: 30,
+      paddingRight: 10,
+      paddingLeft: 10,
+      marginBottom: 10,
+    },
+    value: {
+      color: "#fff",
+      fontSize: 60,
+      textAlign: "right",
+      marginRight: 20,
+    },
+  }
+  // {parseFloat(state.currentValue).toLocaleString()}
 
+    return (
+      <SafeAreaView 
+        onLayout={(event) => {
+          const height = event.nativeEvent.layout.height;
+          setSafeAreaHeight(height);
+        }}
+        style={styles.container}
+      >
           {/* Display area */}
-          <View style={styles.displayArea}>
-            <Text style={styles.value}>
-              {parseFloat(state.currentValue).toLocaleString()}
-            </Text>
-          </View>
+          
 
           {/* Grid area */}
           <View style={styles.gridArea}>
@@ -97,36 +134,16 @@ const App = () => {
               />
             </Row>
           </View>
+          <View style={styles.displayArea}>
+            <Text style={styles.value}>
+              {gridAreaHeight}
+            </Text>
+          </View>
       </SafeAreaView>
     );
 };
 
 // create styles of app
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1c1b21', // Dark background
-  },
-  displayArea: {
-    height: 280, // reduced height for display area
-    backgroundColor: '#35323d', // Lighter shade than container
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    paddingRight: 20,
-    borderRadius: 20,
-  },
-  gridArea: {
-    flex: 0.5,
-    backgroundColor: "#1c1b21",
-    // Style your button grid layout
-    padding: 10, // some padding around the button grid for better aesthetics
-  },
-  value: {
-    color: "#fff",
-    fontSize: 60,
-    textAlign: "right",
-    marginRight: 20,
-  },
-});
+
 
 export default App;
