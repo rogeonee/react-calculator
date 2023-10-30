@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#fff",
-    fontSize: 24,
+    fontSize: 40,
   },
   textSecondary: {
     color: "#060606",
